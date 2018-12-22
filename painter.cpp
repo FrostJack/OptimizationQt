@@ -222,10 +222,10 @@ void Painter::switchEps(bool checked){
 void Painter::switchIter(bool checked){
     switch(checked){
     case 0: iterSave = iter;
-        iter = 100000000;
+        iter = 1000000;
         break;
     case 1: iter = iterSave;
-        iterSave = 100000000;
+        iterSave = 1000000;
         break;
     }
 }
