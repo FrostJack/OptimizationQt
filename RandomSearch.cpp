@@ -1,12 +1,16 @@
 #include "RandomSearch.h"
-#include <random>
 #include <iostream>
+
+RandomSearch::RandomSearch(double p): Optim(), prob(p) {
+    unsigned seed = 13;
+    std::default_random_engine def(13);
+    generator = def;
+    std::uniform_real_distribution<> st(0, 1);
+    standard = st;
+}
 
 void RandomSearch::calculate(Func *pfun, const Border &border, const std::vector<double> &point, const double &eps,
 	const int &improve) {
-	unsigned seed = 13;
-	std::default_random_engine generator(seed);
-	std::uniform_real_distribution<double> stand(0.0, 1.0);
 	steps = 0;
 	int improve_steps = 0;
 	int n = pfun->dim();
@@ -25,10 +29,10 @@ void RandomSearch::calculate(Func *pfun, const Border &border, const std::vector
 	double delta = 1;
 	while (steps < max_steps) {
 		++steps;
-		rand = stand(generator);
+        rand = standard(generator);
 		if (rand > prob)
 			for (int j = 0; j < n; ++j) {
-				rand = border.left[j] + (border.right[j] - border.left[j])*stand(generator);
+                rand = border.left[j] + (border.right[j] - border.left[j])*standard(generator);
 				y[j] = rand;
 			}
 		else {
@@ -39,7 +43,7 @@ void RandomSearch::calculate(Func *pfun, const Border &border, const std::vector
 				if (border.right[j] < ans[j] + delta)
 					right = border.right[j];
 				else right = ans[j] + delta;
-				rand = left + (right - left)*stand(generator);
+                rand = left + (right - left)*standard(generator);
 				y[j] = rand;
 			}
 		}
