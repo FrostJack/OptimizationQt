@@ -154,13 +154,12 @@ void Painter::changeFunc(int index){
 
 void Painter::changeMethod(bool checked){
     delete popt;
-    switch(checked){
-    case 0: popt = new CoordDescent();
+    if(!checked){ popt = new CoordDescent();
         rChecked = 0;
-        break;
-    case 1: popt = new RandomSearch(prob);
-        rChecked = 1;
-        break;
+    }
+    else {
+    popt = new RandomSearch(prob);
+    rChecked = 1;
     }
 }
 

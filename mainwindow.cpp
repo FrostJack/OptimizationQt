@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Graph -> addWidget(painter);
 
     QObject::connect(ui->funcBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), painter, &Painter::changeFunc);
-    QObject::connect(ui->randomSearchButton, &QRadioButton::clicked, painter, &Painter::changeMethod);
+    QObject::connect(ui->randomSearchButton, &QRadioButton::toggled, painter, &Painter::changeMethod);
     QObject::connect(ui->firstLeftSpin, static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), painter, &Painter::changeBorderLF);
     QObject::connect(ui->secondLeftSpin, static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), painter, &Painter::changeBorderLS);
     QObject::connect(ui->firstRightSpin, static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), painter, &Painter::changeBorderRF);
@@ -23,8 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(painter,&Painter::fAnsSignal, this, &MainWindow::fAnsSignal);
     QObject::connect(painter,&Painter::ansSignal, this, &MainWindow::ansSignal);
     QObject::connect(painter,&Painter::stepsSignal, this, &MainWindow::stepsSignal);
-    QObject::connect(ui->epsButton, &QRadioButton::clicked, painter, &Painter::switchEps);
-    QObject::connect(ui->iterButton, &QRadioButton::clicked, painter, &Painter::switchIter);
+    QObject::connect(ui->epsCheck, &QCheckBox::clicked, painter, &Painter::switchEps);
+    QObject::connect(ui->iterCheck, &QRadioButton::clicked, painter, &Painter::switchIter);
 }
 
 MainWindow::~MainWindow()
